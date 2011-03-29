@@ -48,9 +48,12 @@ add_subdirectory (ontologies)
 # First target - nepomuktelepathyservice static library
 
 set (nepomuktelepathyservice_static_SRCS
-     telepathyaccountmonitor.cpp
-     telepathyaccount.cpp
-     telepathycontact.cpp
+     controller.cpp
+     account.cpp
+     contact.cpp
+     abstract-storage.cpp
+     nepomuk-storage.cpp
+     test-backdoors.cpp
 )
 
 kde4_add_library (nepomuktelepathyservice-static
@@ -75,7 +78,7 @@ set_property(TARGET nepomuktelepathyservice-static PROPERTY COMPILE_FLAGS -fPIC)
 # Second target - nepomuktelepatyservice
 
 set (nepomuktelepathyservice_SRCS
-     nepomuktelepathyservice.cpp
+     service.cpp
 )
 
 # Build the service.

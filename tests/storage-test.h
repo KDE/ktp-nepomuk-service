@@ -1,8 +1,7 @@
 /*
- * This file is part of telepathy-nepomuk-service
+ * This file is part of nepomuktelepathyservice
  *
- * Copyright (C) 2009-2011 Collabora Ltd. <info@collabora.co.uk>
- *   @author Dario Freddi <dario.freddi@collabora.co.uk>
+ * Copyright (C) 2011 Collabora Ltd. <info@collabora.co.uk>
  *   @author George Goldberg <george.goldberg@collabora.co.uk>
  *
  * This library is free software; you can redistribute it and/or
@@ -20,23 +19,20 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef TELEPATHY_NEPOMUK_SERVICE_ACCOUNT_TEST_H
-#define TELEPATHY_NEPOMUK_SERVICE_ACCOUNT_TEST_H
+#ifndef TELEPATHY_NEPOMUK_SERVICE_STORAGE_TEST_H
+#define TELEPATHY_NEPOMUK_SERVICE_STORAGE_TEST_H
+
+#include "nepomuk-storage.h"
 
 #include <KTelepathy/TestLib/Test>
 
-#include <TelepathyQt4/Account>
-#include <TelepathyQt4/AccountManager>
-
-class Account;
-
-class AccountTest : public Test
+class StorageTest : public Test
 {
     Q_OBJECT
 
 public:
-    AccountTest(QObject* parent = 0);
-    virtual ~AccountTest();
+    StorageTest(QObject* parent = 0);
+    virtual ~StorageTest();
 
 public Q_SLOTS:
 
@@ -44,24 +40,27 @@ private Q_SLOTS:
     void initTestCase();
     void init();
 
-    void testInitShutdown();
-    //void testOnConnectionStatusChanged();
-    void testOnCurrentPresenceChanged();
-    void testOnNicknameChanged();
-    //void testOnAllKnownContactsChanged();
-    //void testOnNewContact();
-    //void testOnContactDestroyed();
-    //void testSignalRelays();
+    void testConstructorDestructor();
+    void testCreateAccount();
+    void testDestroyAccount();
+    void testSetAccountNickname();
+    void testSetAccountCurrentPresence();
+    void testCreateContact();
+    void testDestroyContact();
+    void testSetContactAlias();
+    void testSetContactPresence();
+    void testSetContactGroups();
+    void testSetContactBlockedStatus();
+    void testSetContactPublishState();
+    void testSetContactSubscriptionState();
 
     void cleanup();
     void cleanupTestCase();
 
 private:
-    Tp::AccountManagerPtr m_accountManager;
-    Tp::AccountPtr m_account;
-    Account *m_accountObject;
+    NepomukStorage *m_storage;
 };
 
 
-#endif // Header Guard
+#endif  // Include guard
 

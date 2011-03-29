@@ -1,9 +1,8 @@
 /*
- * This file is part of nepomuktelepathyservice
+ * This file is part of telepathy-nepomuk-service
  *
- * Copyright (C) 2009-2010 Collabora Ltd. <info@collabora.co.uk>
+ * Copyright (C) 2010-2011 Collabora Ltd. <info@collabora.co.uk>
  *   @author George Goldberg <george.goldberg@collabora.co.uk>
- * Copyright (C) 2010 Daniele E. Domenichelli <daniele.domenichelli@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,30 +19,30 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "nepomuktelepathyservice.h"
+#include "test-backdoors.h"
 
-#include "telepathyaccountmonitor.h"
-#include <Nepomuk/ResourceManager>
-#include <TelepathyQt4/Types>
-#include <KPluginFactory>
-
-using namespace Nepomuk;
-
-TelepathyService::TelepathyService(QObject* parent, const QVariantList &)
-    : Nepomuk::Service(parent, true)
+Nepomuk::PersonContact
+TestBackdoors::nepomukStorageMePersonContact(NepomukStorage *storage)
 {
-    // Initialise Telepathy.
-    Tp::registerTypes();
+    Q_ASSERT(storage);
 
-    // Create an instance of the Telepathy Account Monitor.
-    TelepathyAccountMonitor *monitor = new TelepathyAccountMonitor(this);
-
-    setServiceInitialized(true);
+    return storage->m_mePersonContact;
 }
 
-TelepathyService::~TelepathyService()
+QHash<QString, Nepomuk::IMAccount> *
+TestBackdoors::nepomukStorageAccounts(NepomukStorage *storage)
 {
+    Q_ASSERT(storage);
+
+    return &storage->m_accounts;
 }
 
 
-NEPOMUK_EXPORT_SERVICE( TelepathyService, "nepomuktelepathyservice" );
+QHash<ContactIdentifier, ContactResources> *
+TestBackdoors::nepomukStorageContacts(NepomukStorage *storage)
+{
+    Q_ASSERT(storage);
+
+    return &storage->m_contacts;
+}
+
